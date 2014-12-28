@@ -1,0 +1,26 @@
+function FindProxyForURL(url, host) {
+
+if (shExpMatch(host, "127.0.0.1"))
+{
+  return "DIRECT";
+}
+
+if (isInNet(host, "127.0.0.1", "255.0.0.0"))
+{
+  return "DIRECT";
+}
+
+if (isInNet(host, "192.168.0.0", "255.255.0.0"))
+{
+  return "DIRECT";
+}
+
+if (isInNet(host, "172.16.0.0", "255.240.0.0"))
+{
+  return "DIRECT";
+}
+
+// All other requests go through squid
+// should that fail to respond, go directly to the WWW:
+return "PROXY squid.nyc.urbandecoder.net:3128; DIRECT";
+} 
